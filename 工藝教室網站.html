@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSUCGM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #ffbb00;
+            color: rgb(70, 70, 70);
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            padding: 50px;
+            text-align: center;
+        }
+        .btn-container {
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #00ccff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .dropdown {
+            margin: 20px 0;
+        }
+        .dropdown select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .carousel {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .carousel img {
+            width: 100%;
+            display: none;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel img.active {
+            display: block;
+        }
+        .carousel-buttons {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        .carousel-buttons button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #footer {
+            background-color: #00a500;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>小文老師的手工藝小教室</h1>
+        <p>歡迎一起來玩~</p>
+    </header>
+
+    <section>
+        <h2>報名系統</h2>
+        <div class="dropdown">
+            <select id="registration-dropdown" onchange="handleDropdownChange()">
+                <option value="">選擇報名活動內容</option>
+                <option value="https://docs.google.com/forms/d/e/1FAIpQLSed3GSw9VJscfr7xGTYjG_KYDOlT8gvy2E2-KyzAPYZf1QBRw/viewform?usp=dialog">不織布香包教學</option>
+                <option value="https://docs.google.com/forms/d/e/1FAIpQLSfBp5-UsKbszHnwPl-37JkU96VRM3B1gi78tWlCOif0-gGDSg/viewform?usp=publish-editor">鐵絲工藝小教室</option>
+            </select>
+        </div>
+        <a href="https://www.facebook.com/粉專連結" target="_blank" class="btn">前往粉專</a>
+        <a href="imendo.html" class="btn">即將舉辦活動介紹</a>
+    </section>
+
+    <section>
+        <h2>成品及場地</h2>
+        <div class="carousel">
+            <img src="./jpg/3.jpeg" alt="成品圖片1" class="active">
+            <img src="./jpg/5.jpg" alt="成品圖片 2">
+            <img src="./jpg/6.jpg" alt="成品圖片 3">
+            <div class="carousel-buttons">
+                <button onclick="prevImage()">&lt;</button>
+                <button onclick="nextImage()">&gt;</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer">
+        <p>聯絡方式</p>
+        <p>電話:XXXXXXXXXX</p>
+        <p>地址:??????????</p></div>
+    <script>
+        function handleDropdownChange() {
+            const dropdown = document.getElementById('registration-dropdown');
+            const selectedValue = dropdown.value;
+            if (selectedValue) {
+                window.open(selectedValue, '_blank');
+            }
+        }
+
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.carousel img');
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                img.style.transform = i === index ? 'translateX(0)' : 'translateX(100%)';
+                img.classList.toggle('active', i === index);
+            });
+        }
+
+        function prevImage() {
+            images[currentImageIndex].classList.remove('active');
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            showImage(currentImageIndex);
+        }
+
+        function nextImage() {
+            images[currentImageIndex].classList.remove('active');
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }
+    </script>
+    
+</body>
+</html>
